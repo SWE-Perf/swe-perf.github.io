@@ -4,12 +4,108 @@
             "question_id": "1873_A",
             "model": "DeepSeek-V3",
             "date": 1692662400000,
-            "difficulty": "easy",
-            "pass@1": 100.0,
             "apply": 47.85,
             "correctness": 42.86,
             "performance": 0.54,
-            "platform": "codeforces",
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "Claude-4-opus",
+            "date": 1692662400000,
+            "apply": 85.71,
+            "correctness": 78.57,
+            "performance": 1.28,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "Claude-4-sonnet",
+            "date": 1692662400000,
+            "apply": 73.57,
+            "correctness": 70.00,
+            "performance": 1.76,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "GPT-4o",
+            "date": 1692662400000,
+            "apply": 63.57,
+            "correctness": 56.43,
+            "performance": 0.60,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "OpenAI-o1",
+            "date": 1692662400000,
+            "apply": 66.42,
+            "correctness": 63.57,
+            "performance": 0.41,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "OpenAI-o3",
+            "date": 1692662400000,
+            "apply": 78.57,
+            "correctness": 76.43,
+            "performance": 1.37,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "DeepSeek-V3",
+            "date": 1692662400000,
+            "apply": 47.85,
+            "correctness": 42.86,
+            "performance": 0.54,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "DeepSeek-R1",
+            "date": 1692662400000,
+            "apply": 40.71,
+            "correctness": 37.14,
+            "performance": 0.51,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "Gemini-2.5-pro",
+            "date": 1692662400000,
+            "apply": 95.00,
+            "correctness": 83.57,
+            "performance": 1.48,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "Qwen3-235B-A22B",
+            "date": 1692662400000,
+            "apply": 54.29,
+            "correctness": 48.57,
+            "performance": 0.68,
+            "category": "oracle"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "Agent(Claude-3.7)",
+            "date": 1692662400000,
+            "apply": 87.86,
+            "correctness": 77.86,
+            "performance": 2.26,
+            "category": "end-to-end"
+        },
+        {
+            "question_id": "1873_A",
+            "model": "Agentless(Claude-3.7)",
+            "date": 1692662400000,
+            "apply": 88.57,
+            "correctness": 70.71,
+            "performance": 0.41,
             "category": "end-to-end"
         }
     ],
