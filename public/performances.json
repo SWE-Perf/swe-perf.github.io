@@ -6,6 +6,9 @@
             "date": 1692662400000,
             "difficulty": "easy",
             "pass@1": 100.0,
+            "Apply":47.85,
+            "Correctness":42.86,
+            "Performance":0.54,
             "platform": "codeforces",
             "category": "end-to-end"
         }
