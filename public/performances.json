@@ -123,6 +123,69 @@
             "model_style": "Agentless",
             "release_date": 1719705600000,
             "link": "https://github.com/OpenAutoCoder/Agentless"
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "Claude-4-opus",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "Claude-4-sonnet",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "GPT-4o",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "OpenAI-o1",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "OpenAI-o3",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "DeepSeek-R1",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "Gemini-2.5-pro",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "Qwen3-235B-A22B",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
+        },
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "Agent(Claude-3.7)",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": ""
         }
     ],
     "categories": [
