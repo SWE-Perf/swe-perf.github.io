@@ -116,6 +116,13 @@
             "model_style": "DeepSeekAPI",
             "release_date": 1719705600000,
             "link": "https://huggingface.co/deepseek-ai/DeepSeek-V3"
+        },
+        {
+            "model_name": "Agentless(Claude-3.7)",
+            "model_repr": "Agentless(Claude-3.7)",
+            "model_style": "Agentless",
+            "release_date": 1719705600000,
+            "link": "https://github.com/OpenAutoCoder/Agentless"
         }
     ],
     "categories": [
