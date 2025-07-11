@@ -725,14 +725,14 @@
             const { performances, models } = data;
             const rows = models
                 .map(model => {
-                    //const { apply, correctness, performance } = getMetrics(
-                    //    performances, model.model_repr, category
-                    //);
+                    const { apply, correctness, performance } = getMetrics(
+                        performances, model.model_repr, category
+                    );
                     return {
                         Model: model.model_repr,
-                        "Apply": data.Apply,
-                        "Correctness": data.Correctness,
-                        "Performance": data.Performance,
+                        "Apply": apply,
+                        "Correctness": correctness,
+                        "Performance": performance,
                         link: model.link,
                     };
                 })
