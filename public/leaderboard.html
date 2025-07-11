@@ -578,11 +578,11 @@
                 <!-- Category Selection -->
                 <div class="category-container">
                     <div class="category-buttons">
-                        <button class="category-button active" id="endToEndBtn" data-category="end-to-end">
-                            End-to-End
-                        </button>
                         <button class="category-button" id="oracleBtn" data-category="oracle">
                             Oracle
+                        </button>
+                        <button class="category-button active" id="endToEndBtn" data-category="end-to-end">
+                            End-to-End
                         </button>
                     </div>
                 </div>
@@ -624,7 +624,7 @@
         // Global state
         // =============================================================================
         let currentData = null;
-        let currentCategory = 'end-to-end';
+        let currentCategory = 'oracle';
 
         // Elements
         const endToEndBtn = document.getElementById('endToEndBtn');
