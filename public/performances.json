@@ -1,0 +1,26 @@
+{
+    "performances": [
+        {
+            "question_id": "1873_A",
+            "model": "DeepSeek-V3",
+            "date": 1692662400000,
+            "difficulty": "easy",
+            "pass@1": 100.0,
+            "platform": "codeforces",
+            "category": "end-to-end"
+        }
+    ],
+    "models": [
+        {
+            "model_name": "deepseek-chat",
+            "model_repr": "DeepSeek-V3",
+            "model_style": "DeepSeekAPI",
+            "release_date": 1719705600000,
+            "link": "https://huggingface.co/deepseek-ai/DeepSeek-V3"
+        }
+    ],
+    "categories": [
+        "end-to-end",
+        "oracle"
+    ]
+}
