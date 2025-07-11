@@ -673,11 +673,11 @@
 
             // Calculate metrics based on available data
             // Check if the data has the new fields, otherwise simulate them
-            if (filtered[0] && filtered[0].apply !== undefined) {
+            if (filtered[0] && filtered[0]["apply"] !== undefined) {
                 // Use actual metrics from data
-                const apply = fmt(mean(filtered.map(r => r.apply)) || 0);
-                const correctness = fmt(mean(filtered.map(r => r.correctness)) || 0);
-                const performance = fmt(mean(filtered.map(r => r.performance)) || 0);
+                const apply = fmt(mean(filtered.map(r => r["apply"])) || 0);
+                const correctness = fmt(mean(filtered.map(r => r["correctness"])) || 0);
+                const performance = fmt(mean(filtered.map(r => r["performance"])) || 0);
                 
                 return { apply, correctness, performance };
             } else {
