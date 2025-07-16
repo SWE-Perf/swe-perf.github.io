@@ -65,7 +65,6 @@
         },
         {
             "model": "Qwen3-235B-A22B",
-            "date": 1692662400000,
             "apply": 54.29,
             "correctness": 48.57,
             "performance": 0.68,
@@ -73,7 +72,6 @@
         },
         {
             "model": "Agent(Claude-3.7)",
-            "date": 1692662400000,
             "apply": 87.86,
             "correctness": 77.86,
             "performance": 2.26,
@@ -81,7 +79,6 @@
         },
         {
             "model": "Agentless(Claude-3.7)",
-            "date": 1692662400000,
             "apply": 88.57,
             "correctness": 70.71,
             "performance": 0.41,
@@ -154,7 +151,7 @@
         }
     ],
     "categories": [
-        "end-to-end",
+        "Realistic",
         "Oracle"
     ]
 }

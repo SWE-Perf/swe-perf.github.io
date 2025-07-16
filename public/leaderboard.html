@@ -196,10 +196,10 @@
                 <!-- Category Selection -->
                 <div class="category-container">
                     <div class="category-buttons">
-                        <button class="category-button active" id="oracleBtn" data-category="oracle">
+                        <button class="category-button active" id="oracleBtn" data-category="Oracle">
                             Oracle (File-Level)
                         </button>
-                        <button class="category-button" id="endToEndBtn" data-category="end-to-end">
+                        <button class="category-button" id="endToEndBtn" data-category="Realistic">
                             Realistic (Repo-Level)
                         </button>
                     </div>
@@ -229,6 +229,19 @@
 
             </div>
         </div>
+          <!-- Footer -->
+        <footer class="footer" style="padding: 1rem 0 1rem;">
+            <div class="container">
+            <div class="text-center">
+                <p>
+                Please reach out to <a href="mailto:qian.liu@tiktok.com">qian.liu@tiktok.com</a> for questions or
+                feedback on SWE-Perf. We welcome collaborations and suggestions for improving the benchmark.
+                The website template is adapted from <a href="https://livecodebench.github.io" target="_blank">LiveCodeBench</a>. 
+                The logo is inspired by <a href="https://www.swebench.com/SWE-bench" target="_blank">SWE-Bench</a>.
+                </p>
+            </div>
+            </div>
+        </footer>
     </main>
 
     <script>
@@ -482,8 +495,8 @@
         }
 
         // Event listeners
-        oracleBtn.addEventListener('click', () => handleCategoryChange('Oracle'));
-        endToEndBtn.addEventListener('click', () => handleCategoryChange('Realistic'));
+        oracleBtn.addEventListener('click', () => handleCategoryChange('oracle'));
+        endToEndBtn.addEventListener('click', () => handleCategoryChange('end-to-end'));
 
         // Initial load
         loadData(currentDataset);
