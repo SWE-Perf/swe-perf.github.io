@@ -255,7 +255,7 @@
         // Global state
         // =============================================================================
         let currentData = null;
-        let currentCategory = 'oracle';
+        let currentCategory = 'Oracle';
 
         // Elements
         const oracleBtn = document.getElementById('oracleBtn');
@@ -280,7 +280,7 @@
                 btn.classList.remove('active');
             });
             
-            if (category === 'oracle') {
+            if (category === 'Oracle') {
                 oracleBtn.classList.add('active');
             } else {
                 endToEndBtn.classList.add('active');
@@ -353,27 +353,46 @@
         }
 
         function buildLeaderboard(data, category) {
-            const { performances, models } = data;
-            const rows = models
-                .map(model => {
+            const { performances } = data;
+            
+            // Get unique model names for the selected category
+            const modelNames = [...new Set(performances
+                .filter(p => p.category === category)
+                .map(p => p.model)
+            )];
+            
+            const rows = modelNames
+                .map(modelName => {
                     const { apply, correctness, performance } = getMetrics(
-                        performances, model.model_repr, category
+                        performances, modelName, category
                     );
                     return {
-                        Model: model.model_repr,
+                        Model: modelName,
                         "Apply": apply,
                         "Correctness": correctness,
                         "Performance": performance,
-                        link: model.link,
                     };
                 })
-                .filter(row => row["Performance"] > -1) // Only show models with data
-                .sort((a, b) => b["Performance"] - a["Performance"]); // Sort by performance
+                .filter(row => row["Performance"] > -1); // Only show models with data
 
-            // Assign ranks
+            // Add Human Expert reference line
+            rows.unshift({
+                Model: "Human Expert",
+                "Apply": 100.00,
+                "Correctness": 100.00,
+                "Performance": 10.85,
+                isReference: true
+            });
+
+            // Sort by performance (Human Expert will naturally be at top)
+            rows.sort((a, b) => b["Performance"] - a["Performance"]);
+
+            // Assign ranks (skip Human Expert reference line)
             let rank = 1;
             rows.forEach(row => {
-                row.Rank = rank++;
+                if (!row.isReference) {
+                    row.Rank = rank++;
+                }
             });
 
             return rows;
@@ -402,12 +421,20 @@
                     tr.style.opacity = '0';
                     tr.style.transform = 'translateY(8px)';
 
+                    // Style Human Expert reference line differently
+                    if (row.isReference) {
+                        tr.style.backgroundColor = '#f1f5f9';
+                        tr.style.borderTop = '2px solid #FF2B54';
+                        tr.style.fontWeight = '600';
+                    }
+
                     tr.innerHTML = `
                         <td class="rank-col">
-                            ${row.Rank ? `<span class="rank-badge ${getRankBadgeClass(row.Rank)}">${row.Rank}</span>` : '—'}
+                            ${row.isReference ? '<span style="color: #FF2B54; font-weight: 600;">REF</span>' : 
+                              (row.Rank ? `<span class="rank-badge ${getRankBadgeClass(row.Rank)}">${row.Rank}</span>` : '—')}
                         </td>
                         <td class="model-col">
-                            ${row.link ? `<a href="${row.link}" target="_blank">${row.Model}</a>` : row.Model}
+                            ${row.isReference ? '<span style="color: #FF2B54;">' + row.Model + '</span>' : row.Model}
                         </td>
                         <td class="score-col">${row["Apply"] === -1 ? '—' : row["Apply"] + '%'}</td>
                         <td class="score-col">${row["Correctness"] === -1 ? '—' : row["Correctness"] + '%'}</td>
@@ -462,13 +489,13 @@
 
             const rows = buildLeaderboard(currentData, currentCategory);
             renderTable(rows);
-
-            // Count problems in current category
-            const numProblems = currentData.performances.filter(
-                r => r.category === currentCategory
-            ).length / currentData.models.length; // Divide by models to get unique problems
             
-            updateInfoText(Math.floor(numProblems));
+            // Show table if we have data
+            if (rows.length > 0) {
+                tableContainer.style.display = 'block';
+            } else {
+                tableContainer.style.display = 'none';
+            }
         }
 
         async function loadData(dataset) {
@@ -483,6 +510,7 @@
                 currentData = await response.json();
                 
                 console.log('Categories:', currentData.categories);
+                console.log('Performances data:', currentData.performances);
                 console.log('Data loaded successfully');
 
                 // Initialize leaderboard
@@ -495,8 +523,8 @@
         }
 
         // Event listeners
-        oracleBtn.addEventListener('click', () => handleCategoryChange('oracle'));
-        endToEndBtn.addEventListener('click', () => handleCategoryChange('end-to-end'));
+        oracleBtn.addEventListener('click', () => handleCategoryChange('Oracle'));
+        endToEndBtn.addEventListener('click', () => handleCategoryChange('Realistic'));
 
         // Initial load
         loadData(currentDataset);

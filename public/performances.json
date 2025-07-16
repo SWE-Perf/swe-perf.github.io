@@ -71,83 +71,18 @@
             "category": "Oracle"
         },
         {
-            "model": "Agent(Claude-3.7)",
+            "model": "Claude-3.7-OpenHands",
             "apply": 87.86,
             "correctness": 77.86,
             "performance": 2.26,
             "category": "Realistic"
         },
         {
-            "model": "Agentless(Claude-3.7)",
+            "model": "Claude-3.7-Agentless",
             "apply": 88.57,
             "correctness": 70.71,
             "performance": 0.41,
             "category": "Realistic"
-        }
-    ],
-    "models": [
-        {
-            "model_name": "deepseek-chat",
-            "model_repr": "DeepSeek-V3",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://huggingface.co/deepseek-ai/DeepSeek-V3"
-        },
-        {
-            "model_name": "Claude-4-opus",
-            "model_repr": "Claude-4-opus",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "Claude-4-sonnet",
-            "model_repr": "Claude-4-sonnet",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "GPT-4o",
-            "model_repr": "GPT-4o",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "OpenAI-o1",
-            "model_repr": "OpenAI-o1",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "OpenAI-o3",
-            "model_repr": "OpenAI-o3",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "DeepSeek-R1",
-            "model_repr": "DeepSeek-R1",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "Gemini-2.5-pro",
-            "model_repr": "Gemini-2.5-pro",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
-        },
-        {
-            "model_name": "Qwen3-235B-A22B",
-            "model_repr": "Qwen3-235B-A22B",
-            "model_style": "DeepSeekAPI",
-            "release_date": 1719705600000,
-            "link": "https://github.com/OpenAutoCoder/Agentless"
         }
     ],
     "categories": [
