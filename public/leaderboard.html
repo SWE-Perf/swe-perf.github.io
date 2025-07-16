@@ -1,321 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWE-Perf Leaderboard - Code Performance Optimization Benchmark</title>
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Modern, web-friendly font stack -->
+    <meta name="description" content="Leaderboard for SWE-Perf benchmark showing performance of leading AI models on code optimization tasks.">
+    
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Optimized font loading -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Single optimized CSS file -->
+    <link rel="stylesheet" href="./css/optimized.css">
+    <link rel="icon" href="./images/favicon.svg">
 
+    <!-- Critical inline styles for above-the-fold content -->
     <style>
-        :root {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            font-feature-settings: 'liga' 1, 'calt' 1;
-            --primary-color: #FF2B54;
-            --primary-hover: #e21947;
-            --background: #ffffff;
-            --surface: #ffffff;
-            --surface-hover: #f8fafc;
-            --surface-elevated: #f1f5f9;
-            --border: #e2e8f0;
-            --border-light: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #64748b;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --radius: 8px;
-            --radius-lg: 12px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-            background: #f8fafc;
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 18px !important;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
-
-        /* Simple container approach like GSO */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Navigation Header */
-        .main-nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-            font-size: 1.75rem !important;
-            font-weight: 700 !important;
-            color: #0f172a !important;
-            text-decoration: none !important;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-            font-size: 1.125rem !important;
-            font-weight: 500 !important;
-            color: #64748b !important;
-            text-decoration: none !important;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-link:hover {
-            color: #FF2B54 !important;
-            background: #fff1f3;
-        }
-
-        .nav-link.active {
-            color: #FF2B54 !important;
-            background: #ffe4e8;
-            font-weight: 600 !important;
-        }
-
-        .nav-new-badge {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white !important;
-            padding: 0.25rem 0.625rem;
-            border-radius: 9999px;
-            font-size: 0.75rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-left: 0.5rem;
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        /* Hero Section */
-        .hero {
-            background: var(--background);
-            padding: 3rem 0 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero-body {
-            text-align: center;
-        }
-
-        .title.is-1.publication-title {
-            font-size: 3rem !important;
-            font-weight: 800 !important;
-            margin-bottom: 2rem !important;
-            color: var(--text-primary) !important;
-            line-height: 1.2 !important;
-            letter-spacing: -0.03em !important;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-        }
-
-        /* Content Container */
-        .content-container {
-            margin: 2rem 0;
-        }
-
-        /* Info Message */
-        .info-message {
-            text-align: left;
-            margin-bottom: 2rem;
-            font-weight: 400 !important;
-            color: var(--text-secondary) !important;
-            line-height: 1.7 !important;
-            font-size: 1.125rem !important;
-            padding: 1.5rem;
-            background: var(--surface);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-        }
-
-        .info-message strong {
-            color: var(--text-primary) !important;
-            font-weight: 600 !important;
-        }
-
-        .info-message em {
-            color: var(--text-muted) !important;
-            font-style: italic !important;
-        }
-
-        .info-message a {
-            color: var(--primary-color) !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-        }
-
-        .info-message a:hover {
-            text-decoration: underline !important;
-        }
-
-
-        /* --- GSO-style Table Aesthetics --- */
-        .table-container {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border);
+        body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto',sans-serif;background:#f8fafc}.main-nav{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:1000;box-shadow:0 1px 3px 0 rgb(0 0 0/.1)}.nav-container{max-width:1200px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}.hero{padding:2rem 0 1.5rem;text-align:center;background:#fff}
+        
+        /* Additional critical styles for navigation */
+        .nav-brand{font-size:1.75rem;font-weight:700;color:#0f172a;text-decoration:none}.nav-links{display:flex;gap:2rem;align-items:center}.nav-link{font-size:1.125rem;font-weight:500;color:#64748b;text-decoration:none;padding:0.5rem 1rem;border-radius:6px;transition:all 0.2s ease}.nav-link:hover{color:#FF2B54;background:#fff1f3}.nav-link.active{color:#FF2B54;background:#ffe4e8;font-weight:600}
+        
+        /* Hero title styles */
+        .hero-title{font-size:3rem;font-weight:700;margin-bottom:1rem;line-height:1.2;color:#0f172a}
+        
+        /* Leaderboard-specific styles */
+        .leaderboard-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             margin-bottom: 2rem;
         }
-
+        
         .table-scroll {
             max-height: 700px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: var(--border) var(--surface);
         }
-
-        .table-scroll::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .table-scroll::-webkit-scrollbar-track {
-            background: var(--surface);
-        }
-
-        .table-scroll::-webkit-scrollbar-thumb {
-            background-color: var(--border);
-            border-radius: 4px;
-            border: 2px solid var(--surface);
-        }
-
-        .table-scroll::-webkit-scrollbar-thumb:hover {
-            background-color: var(--text-muted);
-        }
-
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 1rem !important;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
         }
-
-        th,
-        td {
-            padding: 1rem 1.25rem !important;
+        
+        th, td {
+            padding: 1rem 1.25rem;
             text-align: left;
-            border-bottom: 1px solid var(--border-light);
-            transition: all 0.2s ease;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+            border-bottom: 1px solid var(--border-color);
         }
-
+        
         th {
-            background: #FF2B54 !important;
-            font-weight: 600 !important;
-            color: #ffffff !important;
+            background: var(--accent-primary);
+            color: white;
             position: sticky;
             top: 0;
             z-index: 5;
-            font-size: 1rem !important;
-            letter-spacing: 0.05em !important;
-            border-bottom: 1px solid var(--border) !important;
-            text-transform: uppercase !important;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-
-        th.rank-col,
-        th.model-col,
-        th.score-col {
-            color: #ffffff !important;
+        
+        tbody tr {
+            background: var(--bg-secondary);
+            transition: background-color 0.2s ease;
         }
-
+        
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        
         .rank-col {
             width: 80px;
             text-align: center;
         }
-
+        
         .model-col {
-            width: 320px;
-            font-weight: 600 !important;
-            color: var(--text-primary) !important;
+            font-weight: 600;
         }
-
+        
         .score-col {
-            width: 100px;
             text-align: center;
             font-variant-numeric: tabular-nums;
-            font-weight: 600 !important;
-            color: var(--text-primary) !important;
         }
-
-        tbody tr {
-            transition: all 0.2s ease;
-            background: var(--surface);
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--surface-elevated);
-        }
-
-        tbody tr:hover {
-            background: var(--surface-hover);
-        }
-
-        tbody tr:last-child {
-            border-bottom: none;
-        }
-
-
-        /* Rank badge (smaller, GSO style) */
+        
         .rank-badge {
             display: inline-flex;
             align-items: center;
@@ -323,240 +95,86 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            font-weight: 700 !important;
-            font-size: 0.875rem !important;
-            box-shadow: var(--shadow-sm);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+            font-weight: 700;
+            font-size: 0.875rem;
         }
-
+        
         .rank-1 {
             background: linear-gradient(135deg, #FF2B54, #e21947);
-            color: #ffffff !important;
+            color: white;
         }
-
+        
         .rank-2 {
             background: linear-gradient(135deg, #ff8fa3, #ff6584);
-            color: #ffffff !important;
+            color: white;
         }
-
+        
         .rank-3 {
             background: linear-gradient(135deg, #ffb3c1, #ff9fb5);
-            color: #8b1538 !important;
+            color: #8b1538;
         }
-
-        .rank-other {
-            background: var(--surface-elevated);
-            color: var(--text-secondary) !important;
-            border: 1px solid var(--border);
-        }
-
-        /* Smooth table updates */
-        .table-updating {
-            opacity: 0.95;
-        }
-
-        .table-updating tbody tr {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Enhanced table styling for animations */
-        tbody {
-            position: relative;
-        }
-
-        a {
-            color: var(--primary-color) !important;
-            text-decoration: none !important;
-            font-weight: 500 !important;
-            cursor: pointer;
-        }
-
-        a:hover {
-            color: var(--primary-hover) !important;
-            text-decoration: underline !important;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted) !important;
-            font-weight: 500 !important;
-            font-size: 1.125rem !important;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-        }
-
-        /* Category Selection Styles */
-        .category-container {
-            width: 100%;
-            padding: 2rem 1rem;
-            display: flex;
-            justify-content: center;
-        }
-
+        
         .category-buttons {
             display: flex;
             gap: 1rem;
-            background: var(--surface-elevated);
-            padding: 0.5rem;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border);
+            justify-content: center;
+            margin: 2rem 0;
         }
-
+        
         .category-button {
             padding: 0.75rem 2rem;
-            font-size: 1rem !important;
-            font-weight: 600 !important;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-            border: none;
-            background: transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            background: var(--bg-secondary);
             color: var(--text-secondary);
-            border-radius: var(--radius);
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
-
+        
         .category-button:hover {
-            background: var(--surface-hover);
+            background: #f8fafc;
             color: var(--text-primary);
         }
-
+        
         .category-button.active {
-            background: #FF2B54;
+            background: var(--accent-primary);
             color: white;
-            box-shadow: var(--shadow-sm);
+            border-color: var(--accent-primary);
         }
-
-        .category-button.active:hover {
-            background: #e21947;
+        
+        .info-message {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
         }
-
-        /* Insights Section */
-        .insights-section {
-            padding: 2rem 0;
-        }
-
-        .insight-card {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px !important;
-            }
-
-            .container {
-                padding: 0 1rem;
-            }
-
-            .nav-container {
-                padding: 0 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-link {
-                font-size: 1rem !important;
-                padding: 0.5rem 0.75rem;
-            }
-
-            .nav-brand {
-                font-size: 1.5rem !important;
-            }
-
-            .hero {
-                padding: 2rem 0;
-            }
-
-            .title.is-1.publication-title {
-                font-size: 2.25rem !important;
-            }
-
-            .category-container {
-                padding: 1.5rem 0.5rem;
-            }
-
-            .category-buttons {
-                gap: 0.5rem;
-                padding: 0.375rem;
-            }
-
-            .category-button {
-                padding: 0.625rem 1.5rem;
-                font-size: 0.875rem !important;
-            }
-
-            .content-container {
-                margin: 1.5rem 0;
-            }
-
-            .info-message {
-                font-size: 1rem !important;
-                padding: 1rem;
-            }
-
-            th,
-            td {
-                padding: 0.75rem 1rem !important;
-                font-size: 0.875rem !important;
-            }
-
-            th {
-                font-size: 0.75rem !important;
-            }
-
-            .model-col {
-                width: 180px;
-            }
-
-            .score-col {
-                width: 80px;
-            }
-
-            .rank-badge {
-                width: 28px;
-                height: 28px;
-                font-size: 0.75rem !important;
-            }
-
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
 
 <body>
-    <!-- Navigation Header -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">SWE-Perf</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Overview</a>
-                <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-body">
-                <h1 class="title is-1 publication-title">
-                    SWE-Perf Leaderboard
-                </h1>
-            </div>
-        </div>
-    </section>
+  <!-- Navigation Header -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">SWE-Perf</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Overview</a>
+        <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
+      </div>
+    </div>
+  </nav>
 
     <!-- Main Content -->
     <main>
-        <div class="container">
+        <div class="container" style="margin-top: 2em;">
             <div class="content-container">
                 <!-- Leaderboard Description -->
                 <div class="info-message">
@@ -567,7 +185,7 @@
                     <ul style="margin-left: 2rem; margin-bottom: 1rem;">
                         <li><strong>Apply (%):</strong> Can the generated patch be applied cleanly to the codebase?</li>
                         <li><strong>Correctness (%):</strong> Do all tests still pass after applying the patch?</li>
-                        <li><strong>Performance (%):</strong> How much faster is the code after optimization?</li>
+                        <li><strong>Performance (%):</strong> How much runtime is saved after optimization?</li>
                     </ul>
                     <p style="margin-bottom: 0;">
                         <strong>End-to-End:</strong> Models generate complete solutions without any assistance.
@@ -579,10 +197,10 @@
                 <div class="category-container">
                     <div class="category-buttons">
                         <button class="category-button active" id="oracleBtn" data-category="oracle">
-                            Oracle
+                            Oracle (File-Level)
                         </button>
                         <button class="category-button" id="endToEndBtn" data-category="end-to-end">
-                            End-to-End
+                            Realistic (Repo-Level)
                         </button>
                     </div>
                 </div>
@@ -864,12 +482,15 @@
         }
 
         // Event listeners
-        oracleBtn.addEventListener('click', () => handleCategoryChange('oracle'));
-        endToEndBtn.addEventListener('click', () => handleCategoryChange('end-to-end'));
+        oracleBtn.addEventListener('click', () => handleCategoryChange('Oracle'));
+        endToEndBtn.addEventListener('click', () => handleCategoryChange('Realistic'));
 
         // Initial load
         loadData(currentDataset);
     </script>
+    
+    <!-- Single optimized JS file for additional functionality -->
+    <script src="./js/optimized.js" defer></script>
 </body>
 
 </html>

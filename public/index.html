@@ -1,425 +1,216 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="description" content="SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?" />
-  <meta name="keywords" content="SWE-Perf, Code Performance, Optimization, Large Language Models, LLM, Repository-level, Benchmark" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>
-    SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?
-  </title>
+  <meta charset="utf-8">
+  <meta name="description" content="SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?">
+  <meta name="keywords" content="SWE-Perf, Code Performance, Optimization, Large Language Models, LLM, Repository-level, Benchmark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?</title>
 
-  <!-- Modern, web-friendly font stack -->
+  <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Optimized font loading with font-display: swap -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/bulma.min.css" />
-  <link rel="stylesheet" href="./css/bulma-carousel.min.css" />
-  <link rel="stylesheet" href="./css/bulma-slider.min.css" />
-  <link rel="stylesheet" href="./css/fontawesome.all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
-  <link rel="stylesheet" href="./css/index.css" />
-  <link rel="icon" href="./images/favicon.svg" />
+  <!-- Single optimized CSS file -->
+  <link rel="stylesheet" href="./css/optimized.css">
+  <link rel="icon" href="./images/favicon.svg">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./js/fontawesome.all.min.js"></script>
-  <script src="./js/bulma-carousel.min.js"></script>
-  <script src="./js/bulma-slider.min.js"></script>
-  <script src="./js/index.js"></script>
-
+  <!-- Critical inline styles for above-the-fold content -->
   <style>
-    /* Navigation Header */
-    .main-nav {
-      background: #ffffff !important;
-      border-bottom: 1px solid #e2e8f0 !important;
-      padding: 1rem 0 !important;
-      position: sticky !important;
-      top: 0 !important;
-      z-index: 1000 !important;
-      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1) !important;
-    }
-
-    .nav-container {
-      max-width: 1200px !important;
-      margin: 0 auto !important;
-      padding: 0 2rem !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-    }
-
-    .nav-brand {
-      font-family: Inter, sans-serif !important;
-      font-size: 1.75rem !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      text-decoration: none !important;
-    }
-
-    .nav-links {
-      display: flex !important;
-      gap: 2rem !important;
-      align-items: center !important;
-    }
-
-    .nav-link {
-      font-family: Inter, sans-serif !important;
-      font-size: 1.125rem !important;
-      font-weight: 500 !important;
-      color: #64748b !important;
-      text-decoration: none !important;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .nav-link:hover {
-      color: #FF2B54 !important;
-      background: #fff1f3;
-    }
-
-    .nav-link.active {
-      color: #FF2B54 !important;
-      background: #ffe4e8;
-      font-weight: 600 !important;
-    }
-    
-    /* Highlight color class */
-    .highlight-text {
-        color: #FF2B54;
-        font-weight: 600;
-    }
-
-    /* Enhanced body and content font sizes with modern font stack */
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
-      font-size: 18px !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      background-color: #f8fafc; /* Lighter background for the whole page */
-    }
-    
-    .section {
-        background-color: #ffffff;
-    }
-
-    .section-light-bg {
-        background-color: #f8fafc;
-    }
-
-    .title.is-2 {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 2.25rem !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      border-bottom: 3px solid #FF2B54;
-      padding-bottom: 0.5rem;
-      display: inline-block;
-      margin-bottom: 2rem !important;
-    }
-
-    .title.is-2.highlighted-title {
-        color: #FF2B54 !important;
-        border-bottom: none;
-    }
-    
-    .title.is-4 {
-        color: #1e293b;
-        font-weight: 600;
-    }
-
-    .is-size-5.publication-authors {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 1.125rem !important;
-      font-weight: 500 !important;
-      color: #475569 !important;
-      margin-top: 1rem;
-    }
-
-    .subtitle {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 1.25rem !important;
-      font-weight: 400 !important;
-      line-height: 1.7 !important;
-      color: #475569 !important;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .content p {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 1.125rem !important;
-      line-height: 1.8 !important;
-      font-weight: 400 !important;
-      color: #334155 !important;
-    }
-
-    .button {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 1rem !important;
-      font-weight: 600 !important;
-      letter-spacing: 0.025em !important;
-      transition: all 0.2s ease-in-out;
-    }
-    
-    .button.is-dark:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    .card.comparison-card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 8px 16px -4px rgba(0,0,0,0.05);
-        border: 1px solid #e2e8f0;
-        padding: 2rem;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .comparison-card img {
-        max-width: 100%;
-        height: 200px;
-        object-fit: contain;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-    }
-    
-    .comparison-card .card-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #0f172a;
-        margin-bottom: 1rem;
-    }
-    
-    .comparison-card .perf-metric {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-    
-    .comparison-card .perf-metric span {
-        font-weight: 700;
-        color: #FF2B54;
-    }
-
-    .comparison-card .strategy {
-        color: #475569;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-    
-    .gap-highlight {
-        text-align: center;
-        padding: 2rem;
-        background: #fff0f2;
-        border: 2px solid #ffb3c1;
-        border-radius: 12px;
-        margin-top: 2rem;
-        color: #c7123a;
-    }
-    
-    .gap-highlight .gap-number {
-        font-size: 3rem;
-        font-weight: 800;
-        display: block;
-        line-height: 1;
-        color: #FF2B54;
-    }
-    
-    .gap-highlight .gap-text {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-top: 0.5rem;
-    }
-
-    /* Code blocks */
-    pre, code {
-      font-family: 'JetBrains Mono', monospace !important;
-      font-size: 0.875rem !important;
-      background: #f8fafc !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 8px !important;
-    }
-
-    pre {
-      padding: 1.5rem !important;
-      overflow-x: auto !important;
-    }
-
-    /* Mobile responsive */
-    @media (max-width: 768px) {
-      body { font-size: 16px !important; }
-      .nav-container { flex-direction: column; gap: 1rem; }
-      .title.is-2, .title.is-3 { font-size: 1.75rem !important; }
-      .is-size-5.publication-authors { font-size: 1rem !important; }
-      .subtitle { font-size: 1.125rem !important; }
-      .content p { font-size: 1rem !important; }
-    }
+    body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto',sans-serif;background:#f8fafc}.main-nav{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:1000;box-shadow:0 1px 3px 0 rgb(0 0 0/.1)}.nav-container{max-width:1200px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}.hero{padding:2rem 0 1.5rem;text-align:center;background:#fff}
   </style>
 </head>
 
 <body>
-    <!-- Navigation Header -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">SWE-Perf</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active">Overview</a>
-                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
-            </div>
-        </div>
-    </nav>
+  <!-- Navigation Header -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">SWE-Perf</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Overview</a>
+        <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+      </div>
+    </div>
+  </nav>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <!-- NEW LOGO ADDED HERE -->
-            <img src="./images/sweperf_logo.png" alt="SWE-Perf Logo: A llama on a rocket next to the text 'SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?'" style="max-width: 800px; width: 100%; margin: 0 auto 0 auto;">
+    <div class="container">
+      <div class="text-center">
+        <!-- Optimized logo with lazy loading and explicit dimensions -->
+        <img 
+          src="./images/sweperf_logo.png" 
+          alt="SWE-Perf Logo: A llama on a rocket next to the text 'SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?'" 
+          class="hero-logo"
+          width="800"
+          height="400"
+          loading="lazy">
 
-            <!-- Authors and affiliations are preserved -->
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"><a href="https://betty1202.github.io/">Xinyi He</a><sup>1</sup>,</span>
-              <span class="author-block"><a href="https://siviltaram.github.io/">Qian Liu</a><sup>2</sup>,</span>
-              <span class="author-block"><a href="https://mingzhe.space/">Mingzhe Du</a><sup>3</sup>,</span>
-              <span class="author-block"><a href="#">Lin Yan</a><sup>2</sup>,</span>
-              <span class="author-block"><a href="#">Zhijie Fan</a><sup>2</sup>,</span>
-              <span class="author-block"><a href="#">Yiming Huang</a><sup>4</sup>,</span>
-              <span class="author-block"><a href="#">Zejian Yuan</a><sup>1</sup>,</span>
-              <span class="author-block"><a href="https://scholar.google.com/citations?user=XwY9LXoAAAAJ&hl=zh-CN">Zejun Ma</a><sup>2</sup></span>
-            </div>
+        <!-- Authors and affiliations -->
+        <div class="hero-authors">
+          <span class="author-block"><a href="https://betty1202.github.io/">Xinyi He</a><sup>1</sup>,</span>
+          <span class="author-block"><a href="https://siviltaram.github.io/">Qian Liu</a><sup>2</sup>,</span>
+          <span class="author-block"><a href="https://mingzhe.space/">Mingzhe Du</a><sup>3</sup>,</span>
+          <span class="author-block"><a href="#">Lin Yan</a><sup>2</sup>,</span>
+          <span class="author-block"><a href="#">Zhijie Fan</a><sup>2</sup>,</span>
+          <span class="author-block"><a href="#">Yiming Huang</a><sup>4</sup>,</span>
+          <span class="author-block"><a href="#">Zejian Yuan</a><sup>1</sup>,</span>
+          <span class="author-block"><a href="https://scholar.google.com/citations?user=XwY9LXoAAAAJ&hl=zh-CN">Zejun Ma</a><sup>2</sup></span>
+        </div>
 
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>Xi'an Jiaotong University</span>
-              <span class="author-block"><sup>2</sup>TikTok</span>
-              <span class="author-block"><sup>3</sup>National University of Singapore</span>
-              <span class="author-block"><sup>4</sup>University of California San Diego</span>
-            </div>
+        <div class="hero-authors" style="margin-top: 0.5rem;">
+          <span class="author-block"><sup>1</sup>Xi'an Jiaotong University</span>
+          <span class="author-block"><sup>2</sup>TikTok</span>
+          <span class="author-block"><sup>3</sup>National University of Singapore</span>
+          <span class="author-block"><sup>4</sup>University of California San Diego</span>
+        </div>
 
-            <div class="column has-text-centered" style="margin-top: 2rem;">
-              <div class="publication-links">
-                <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark"><span class="icon"><i class="ai ai-arxiv"></i></span><span>paper (coming soon)</span></a></span>
-                <span class="link-block"><a href="https://github.com/swe-perf/swe-perf" class="external-link button is-normal is-rounded is-dark"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a></span>
-                <span class="link-block"><a href="https://huggingface.co/datasets/SWE-Perf/SWE-Perf" class="external-link button is-normal is-rounded is-dark"><span class="icon"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face logo" style="height: 1em;"></span><span>Data</span></a></span>
-              </div>
-            </div>
-          </div>
+        <div class="publication-links" style="margin-top: 2rem;">
+          <a href="#" class="button is-dark">
+            <span style="margin-right: 0.5rem;">📄</span>
+            <span>paper (coming soon)</span>
+          </a>
+          <a href="https://github.com/swe-perf/swe-perf" class="button is-dark">
+            <span style="margin-right: 0.5rem;">💻</span>
+            <span>Code</span>
+          </a>
+          <a href="https://huggingface.co/datasets/SWE-Perf/SWE-Perf" class="button is-dark">
+            <span style="margin-right: 0.5rem;">🤗</span>
+            <span>Data</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- What is SWE-Perf Section -->
   <section class="section section-light-bg">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-              <h2 class="title is-2">What is SWE-Perf?</h2>
-              <div class="content has-text-justified">
-                <p>
-                  Optimizing code performance is paramount in software engineering, yet it remains a largely unexplored frontier for Large Language Models (LLMs). While models excel at fixing bugs, their ability to make code faster at a repository-scale is not well understood.
-                </p>
-                <p>
-                  To address this, we introduce <span class="highlight-text">SWE-Perf</span>, the first benchmark meticulously designed to evaluate LLMs on performance optimization tasks within genuine, complex <span class="highlight-text">repository contexts</span>. Unlike benchmarks that focus on isolated code snippets, SWE-Perf challenges models to understand and modify <span class="highlight-text">entire codebases</span>. The benchmark comprises <span class="highlight-text">140 instances</span>, each derived from a real performance-improving pull request on a popular GitHub repository. For each instance, a model is provided with the full source code, a specific performance-related test, and the human expert's solution for reference. The core task is to generate a code patch that reduces the test's execution time without introducing bugs.
-                </p>
-              </div>
-            </div>
+    <div class="container">
+      <div class="text-center">
+        <h2>What is SWE-Perf?</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+          <p>
+            Optimizing code performance is paramount in software engineering, yet it remains a largely unexplored frontier for Large Language Models (LLMs). While models excel at fixing bugs, their ability to make code faster at a repository-scale is not well understood.
+          </p>
+          <div class="text-center" style="margin: 2em;">
+            <img 
+              src="./images/sweperf_taskflow.png" 
+              alt="SWE-Perf Task Workflow" 
+              style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem;"
+              loading="lazy">
+            <p style="text-align: center; color: #475569; font-size: 1.125rem; line-height: 1.6; max-width: 600px; margin: 0 auto; ">
+              <strong>Figure 1. </strong>Language models take a codebase and target functions as input and generate code patches aimed at reducing runtime on relevant test cases.
+            </p>
+          </div>
+          <p>
+            To address this, we introduce <span class="highlight-text">SWE-Perf</span>, the first benchmark meticulously designed to evaluate LLMs on performance optimization tasks within genuine, complex <span class="highlight-text">repository contexts</span>. Unlike benchmarks that focus on isolated code snippets, SWE-Perf challenges models to understand and modify <span class="highlight-text">entire codebases</span>. The benchmark comprises <span class="highlight-text">140 instances</span>, each derived from a real performance-improving pull request on a popular GitHub repository, which are filtered from 100K pull requests. For each instance, a model is provided with the full source code, a specific performance-related test, and the human expert's solution for reference. The core task is to generate a code patch that reduces the test's execution time without introducing bugs.
+          </p>
         </div>
-        <div class="columns is-vcentered" style="margin-top: 2rem;">
-            <!-- The Task -->
-            <div class="column">
-                <h3 class="title is-4 has-text-centered">The Task</h3>
-                <img src="./images/sweperf_taskflow.png" alt="SWE-Perf Task Workflow" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <p style="text-align: center; margin-top: 1rem; color: #475569;">
-                    Models receive a codebase and performance tests. Success is measured by the runtime gain of the generated patch.
-                </p>
-            </div>
-            <!-- The Data -->
-            <div class="column">
-                <h3 class="title is-4 has-text-centered">The Data</h3>
-                <img src="./images/sweperf_collection.jpg" alt="SWE-Perf Data Collection Pipeline" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                 <p style="text-align: center; margin-top: 1rem; color: #475569;">
-                    We built a rigorous pipeline to mine and validate 140 instances from projects like `scikit-learn` and `sympy`.
-                </p>
-            </div>
-        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- Data Collection Pipeline Section -->
   <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column">
-          <h2 class="title is-2 highlighted-title">Key Finding: A Massive AI-Human Gap</h2>
-          <div class="content has-text-justified">
-            <p class="subtitle">
-                Our evaluation of top models (Claude 3, DeepSeek) and agentic frameworks reveals that AI currently lacks the high-level reasoning of human experts.
-            </p>
-            
-            <div class="columns is-variable is-8 is-align-items-stretch" style="margin-top: 3rem;">
-                <!-- AI Model Card -->
-                <div class="column">
-                    <div class="card comparison-card">
-                        <h3 class="card-title">Best AI Model</h3>
-                        <img src="./images/wordcloud_agentless_patch.png" alt="AI Model Word Cloud">
-                        <p class="perf-metric">Performance Gain: <span>2.26%</span></p>
-                        <p class="strategy">
-                            <strong>Strategy:</strong> Micro-optimizations. Focuses on low-level, local changes like `append`, `get`, and `set`.
-                        </p>
-                    </div>
-                </div>
-                <!-- Human Expert Card -->
-                <div class="column">
-                    <div class="card comparison-card">
-                        <h3 class="card-title">Human Expert</h3>
-                        <img src="./images/wordcloud_human_patch.png" alt="Human Expert Word Cloud">
-                        <p class="perf-metric">Performance Gain: <span>10.85%</span></p>
-                        <p class="strategy">
-                            <strong>Strategy:</strong> Macro-optimizations. Performs high-level architectural changes involving components like `parser`, `state`, and `listener`.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="gap-highlight">
-                <span class="gap-number">8.59%</span>
-                <p class="gap-text">Performance Gap: AI must learn architectural thinking.</p>
-            </div>
-
-          </div>
+    <div class="container">
+      <div class="text-center">
+        <h2>Data Collection Pipeline</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+          <p>
+            The data collection pipeline of our SWE-Perf benchmark consists of a rigorous 5-step process designed to identify and validate real-world performance optimization tasks from popular open-source repositories.
+          </p>
+        </div>
+        
+        <div class="text-center" style="margin: 2rem 0;">
+          <img 
+            src="./images/sweperf_collection.png" 
+            alt="SWE-Perf Data Collection Pipeline" 
+            style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem;"
+            loading="lazy">
+          <p style="text-align: center; color: #475569; font-size: 1.125rem; line-height: 1.6; max-width: 700px; margin: 0 auto;">
+            <strong>Figure 2.</strong> The data collection pipeline of our SWE-Perf benchmark.
+          </p>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+          <p>
+            Starting from over <span class="highlight-text">102,241 pull requests</span> across nine Python repositories, our pipeline filters down to <span class="highlight-text">140 high-quality instances</span> that represent genuine performance optimization challenges. Each instance includes the complete repository context, performance-sensitive test cases, and verified human expert solutions, ensuring that our benchmark reflects real-world software optimization scenarios. The selection pipeline consists of: <strong>(1)</strong> collecting pull requests from popular repositories, <strong>(2)</strong> measuring performance of original and modified codebases using unit tests, <strong>(3)</strong> identifying performance-optimizing pull requests, <strong>(4)</strong> verifying stable performance improvements through statistical testing, and <strong>(5)</strong> extracting optimization targets for both oracle and realistic settings.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-
+  <!-- Key Finding Section -->
   <section class="section section-light-bg">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-2">Conclusion</h2>
-          <div class="content has-text-justified">
-            <p>
-              SWE-Perf introduces a challenging new frontier for LLMs: <span class="highlight-text">real-world code performance optimization</span>. Our findings highlight a significant gap between current AI capabilities and human expertise, primarily due to a lack of architectural reasoning in models. By open-sourcing our benchmark, we aim to spur research that closes this gap and pushes models toward generating truly production-ready, performant code.
+    <div class="container">
+      <div class="text-center">
+        <h2>Key Finding: A Massive LLMs - Human Gap</h2>
+        <p style="max-width: 800px; margin: 0 auto 3rem;">
+          Our evaluation of top models (Claude 3.7, OpenAI o3, DeepSeek and Qwen) and agentic frameworks (Agentless, OpenHands) reveals that AI currently lacks the high-level reasoning of human experts.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 0 auto;">
+          <!-- AI Model Card -->
+          <div class="card" style="text-align: center;">
+            <h3 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">Best AI Model</h3>
+            <img 
+              src="./images/wordcloud_agentless_patch.png" 
+              alt="AI Model Word Cloud"
+              style="max-width: 100%; height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 1.5rem;"
+              loading="lazy">
+            <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">
+              Performance Gain: <span class="highlight-text">2.26%</span>
+            </p>
+            <p style="color: #475569; font-size: 1rem; line-height: 1.6;">
+              <strong>Strategy:</strong> Micro-optimizations. Focuses on low-level, local changes like `append`, `get`, and `set`.
             </p>
           </div>
+          <!-- Human Expert Card -->
+          <div class="card" style="text-align: center;">
+            <h3 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">Human Expert</h3>
+            <img 
+              src="./images/wordcloud_human_patch.png" 
+              alt="Human Expert Word Cloud"
+              style="max-width: 100%; height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 1.5rem;"
+              loading="lazy">
+            <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">
+              Performance Gain: <span class="highlight-text">10.85%</span>
+            </p>
+            <p style="color: #475569; font-size: 1rem; line-height: 1.6;">
+              <strong>Strategy:</strong> Macro-optimizations. Performs high-level architectural changes involving components like `parser`, `state`, and `listener`.
+            </p>
+          </div>
+        </div>
+        <span style="margin-top: 1rem; font-size: 3rem; font-weight: 800; display: block; line-height: 1; color: #FF2B54;">8.59%</span>
+        <p style="font-size: 1.25rem; font-weight: 600; margin-top: 0.5rem; color: #FF2B54;">Performance Gap: AI must learn architectural thinking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2>Conclusion</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+          <p>
+            SWE-Perf introduces a challenging new frontier for LLMs: <span class="highlight-text">real-world code performance optimization</span>. Our findings highlight a significant gap between current AI capabilities and human expertise, primarily due to a lack of architectural reasoning in models. By open-sourcing our benchmark, we aim to spur research that closes this gap and pushes models toward generating truly production-ready, performant code.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-
+  <!-- BibTeX Section -->
   <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title is-2">BibTeX</h2>
+    <div class="container">
+      <h2>BibTeX</h2>
       <pre>@article{he2025sweperf,
     title={SWE-Perf: Can Language Models Optimize Code Performance on Real-World Repositories?},
     author={He, Xinyi and Liu, Qian and Du, Mingzhe and Yan, Lin and Fan, Zhijie and Huang, Yiming and Yuan, Zejian and Ma, Zejun},
@@ -428,21 +219,21 @@
     </div>
   </section>
 
-  <footer class="footer">
+  <!-- Footer -->
+  <footer class="footer" style="padding: 1rem 0 1rem;">
     <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-8">
-          <div class="content">
-            <p>
-              Please reach out to <a href="mailto:qian.liu@tiktok.com">qian.liu@tiktok.com</a> for questions or
-              feedback on SWE-Perf. We welcome collaborations and suggestions for improving the benchmark.
-              The website template is adapted from <a href="https://livecodebench.github.io" target="_blank">LiveCodeBench</a>. The logo is inspried by <a href="https://www.swebench.com/SWE-bench" target="_blank">SWE-Bench</a>.
-            </p>
-          </div>
-        </div>
+      <div class="text-center">
+        <p>
+          Please reach out to <a href="mailto:qian.liu@tiktok.com">qian.liu@tiktok.com</a> for questions or
+          feedback on SWE-Perf. We welcome collaborations and suggestions for improving the benchmark.
+          The website template is adapted from <a href="https://livecodebench.github.io" target="_blank">LiveCodeBench</a>. 
+          The logo is inspired by <a href="https://www.swebench.com/SWE-bench" target="_blank">SWE-Bench</a>.
+        </p>
       </div>
     </div>
   </footer>
-</body>
 
+  <!-- Single optimized JS file -->
+  <script src="./js/optimized.js" defer></script>
+</body>
 </html>
