@@ -152,43 +152,22 @@
       <div class="text-center">
         <h2>Key Finding: A Massive LLMs - Human Gap</h2>
         <p style="max-width: 800px; margin: 0 auto 3rem;">
-          Our evaluation of top models (Claude 3.7, OpenAI o3, DeepSeek and Qwen) and agentic frameworks (Agentless, OpenHands) reveals that AI currently lacks the high-level reasoning of human experts.
+          Our evaluation of top models (Claude, Gemini, OpenAI, DeepSeek and Qwen) and agentic frameworks (Agentless, OpenHands) reveals an <span class="highlight-text">8.59% performance gap</span> between current best AI model and human experts.
         </p>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 0 auto;">
-          <!-- AI Model Card -->
-          <div class="card" style="text-align: center;">
-            <h3 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">Best AI Model</h3>
-            <img 
-              src="./images/wordcloud_agentless_patch.png" 
-              alt="AI Model Word Cloud"
-              style="max-width: 100%; height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 1.5rem;"
-              loading="lazy">
-            <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">
-              Performance Gain: <span class="highlight-text">2.26%</span>
-            </p>
-            <p style="color: #475569; font-size: 1rem; line-height: 1.6;">
-              <strong>Strategy:</strong> Micro-optimizations. Focuses on low-level, local changes like `append`, `get`, and `set`.
-            </p>
-          </div>
-          <!-- Human Expert Card -->
-          <div class="card" style="text-align: center;">
-            <h3 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">Human Expert</h3>
-            <img 
-              src="./images/wordcloud_human_patch.png" 
-              alt="Human Expert Word Cloud"
-              style="max-width: 100%; height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 1.5rem;"
-              loading="lazy">
-            <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">
-              Performance Gain: <span class="highlight-text">10.85%</span>
-            </p>
-            <p style="color: #475569; font-size: 1rem; line-height: 1.6;">
-              <strong>Strategy:</strong> Macro-optimizations. Performs high-level architectural changes involving components like `parser`, `state`, and `listener`.
-            </p>
-          </div>
+        <div class="text-center" style="max-width: 60%; margin: 2em auto;">
+          <img 
+            src="./images/performance_runtime.png" 
+            alt="SWE-Perf Task Workflow" 
+            style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem;"
+            loading="lazy">
+          <p style="text-align: center; color: #475569; font-size: 1.125rem; line-height: 1.6; max-width: 600px; margin: 0 auto; ">
+            <strong>Figure 3.</strong> Performance variation relative to the runtime of the original codebase.
+          </p>
         </div>
-        <span style="margin-top: 1rem; font-size: 3rem; font-weight: 800; display: block; line-height: 1; color: #FF2B54;">8.59%</span>
-        <p style="font-size: 1.25rem; font-weight: 600; margin-top: 0.5rem; color: #FF2B54;">Performance Gap: AI must learn architectural thinking.</p>
+        <p style="max-width: 800px; margin: 0 auto 3rem;">
+          As runtime increases, the performance ceiling rises correspondingly. The model’s capability to improve performance on cases with longer runtimes requires further
+          enhancement.
+        </p>
       </div>
     </div>
   </section>
