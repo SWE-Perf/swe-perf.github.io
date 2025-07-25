@@ -83,6 +83,13 @@
             "correctness": 70.71,
             "performance": 0.41,
             "category": "Realistic"
+        },
+        {
+            "model": "Qwen3-Coder-OpenHands",
+            "apply": 96.42857142857144,
+            "correctness": 96.42857142857144,
+            "performance": 2.60990406433078,
+            "category": "Realistic"
         }
     ],
     "categories": [
